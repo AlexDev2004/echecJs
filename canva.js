@@ -22,23 +22,37 @@ function drawArea(){
     }
 }
 
-function drawPionW(pos){
-    ctx.fillStyle= "white";
-    ctx.strokeStyle= "black";
+function borderColor(p){
+    let color =[];
+    if (p[2] == "w"){
+        color.push("white","black");
+    }else{
+        color.push("black","white");
+    }
+    if(p == pionSelect){
+        color.pop();
+        color.push("red");
+    }
+    return color;
+}
+
+function drawPionW(p){
+    ctx.fillStyle= borderColor(p)[0];
+    ctx.strokeStyle= borderColor(p)[1];
     ctx.lineWidth= 2;
 
     ctx.beginPath();
-        ctx.arc(pos[0]*100-49,pos[1]*100-49, 30, 0, Math.PI*2);
+        ctx.arc(p[0]*100-49,p[1]*100-49, 30, 0, Math.PI*2);
         ctx.fill();
         ctx.stroke();
 }
-function drawPionB(pos){
-    ctx.fillStyle= "black";
-    ctx.strokeStyle= "white";
+function drawPionB(p){
+    ctx.fillStyle= borderColor(p)[0];
+    ctx.strokeStyle= borderColor(p)[1];
     ctx.lineWidth= 2;
 
     ctx.beginPath();
-        ctx.arc(pos[0]*100-49,pos[1]*100-49, 30, 0, Math.PI*2);
+        ctx.arc(p[0]*100-49,p[1]*100-49, 30, 0, Math.PI*2);
         ctx.fill();
         ctx.stroke();
 }

@@ -59,13 +59,14 @@ function pionMove(p){
     }
 }
 
+let pionSelect;
 document.addEventListener("mousedown", (event) => {
     if (event.button === 0) {
         let mouseX = event.clientX;
         let mouseY = event.clientY;
         let pionX = Math.floor((mouseX-1)/100);
         let pionY = Math.floor((mouseY-1)/100);
-        let pionSelect = grillContent[pionX][pionY];
+        pionSelect = grillContent[pionX][pionY];
         if(pionSelect[3] == "p"){
             pionMove(pionSelect);
         }
