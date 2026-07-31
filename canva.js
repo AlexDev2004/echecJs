@@ -36,44 +36,142 @@ function borderColor(p){
     return color;
 }
 
-function drawPionW(p){
+function drawPion(p){
     ctx.fillStyle= borderColor(p)[0];
     ctx.strokeStyle= borderColor(p)[1];
     ctx.lineWidth= 2;
-
     ctx.beginPath();
         ctx.arc(p[0]*100-49,p[1]*100-49, 30, 0, Math.PI*2);
         ctx.fill();
         ctx.stroke();
 }
-function drawPionB(p){
+function drawTour(p){
     ctx.fillStyle= borderColor(p)[0];
     ctx.strokeStyle= borderColor(p)[1];
     ctx.lineWidth= 2;
-
     ctx.beginPath();
-        ctx.arc(p[0]*100-49,p[1]*100-49, 30, 0, Math.PI*2);
+        ctx.moveTo((p[0]*100-49)-38,(p[1]*100-49));
+        ctx.lineTo((p[0]*100-49)-20,(p[1]*100-49)+35);
+        ctx.lineTo((p[0]*100-49)+20,(p[1]*100-49)+35);
+        ctx.lineTo((p[0]*100-49)+38,(p[1]*100-49));
+        ctx.lineTo((p[0]*100-49)+20,(p[1]*100-49)-35);
+        ctx.lineTo((p[0]*100-49)-20,(p[1]*100-49)-35);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+}
+function drawFou(p){
+    ctx.fillStyle= borderColor(p)[0];
+    ctx.strokeStyle= borderColor(p)[1];
+    ctx.lineWidth= 2;
+    ctx.beginPath();
+        ctx.arc(p[0]*100-49,p[1]*100-49, 35, 0, Math.PI*2);
+        ctx.fill();
+        ctx.stroke();
+    ctx.beginPath();
+        ctx.arc(p[0]*100-49,p[1]*100-49, 10, 0, Math.PI*2);
+        ctx.fill();
+        ctx.stroke();
+}
+function drawHorse(p){
+    ctx.fillStyle= borderColor(p)[0];
+    ctx.strokeStyle= borderColor(p)[1];
+    ctx.lineWidth= 2;
+    ctx.fillRect((p[0]*100-49)-20,(p[1]*100-49)-40,30,80);
+    ctx.strokeRect((p[0]*100-49)-20,(p[1]*100-49)-40,30,80);
+    ctx.beginPath();
+        ctx.arc((p[0]*100-49),(p[1]*100-49)+40, 35,Math.PI,Math.PI*2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    ctx.fillRect((p[0]*100-49)-20,(p[1]*100-49)-40,50,25);
+    ctx.strokeRect((p[0]*100-49)-20,(p[1]*100-49)-40,50,25);
+}
+function drawKing(p){
+    ctx.fillStyle= borderColor(p)[0];
+    ctx.strokeStyle= borderColor(p)[1];
+    ctx.lineWidth= 2;
+    ctx.beginPath();
+        ctx.arc((p[0]*100-49),(p[1]*100-49), 40, 0, Math.PI*2);
+        ctx.fill();
+        ctx.stroke();
+    ctx.beginPath();
+        ctx.arc((p[0]*100-49),(p[1]*100-49), 30, 0, Math.PI*2);
+        ctx.fill();
+        ctx.stroke();
+    ctx.beginPath();
+        ctx.arc((p[0]*100-49),(p[1]*100-49), 20, 0, Math.PI*2);
+        ctx.fill();
+        ctx.stroke();
+    ctx.strokeRect((p[0]*100-49)-20,(p[1]*100-49)-20,40,40);
+    ctx.beginPath();
+        ctx.moveTo((p[0]*100-49)-15,(p[1]*100-49)-15);
+        ctx.lineTo((p[0]*100-49)+15,(p[1]*100-49)+15);
+        ctx.stroke();
+    ctx.beginPath();
+        ctx.moveTo((p[0]*100-49)-15,(p[1]*100-49)+15);
+        ctx.lineTo((p[0]*100-49)+15,(p[1]*100-49)-15);
+        ctx.stroke();
+}
+function drawQueen(p){
+    ctx.fillStyle= borderColor(p)[0];
+    ctx.strokeStyle= borderColor(p)[1];
+    ctx.lineWidth= 2;
+    ctx.beginPath();
+        ctx.arc((p[0]*100-49),(p[1]*100-49), 40, 0, Math.PI*2);
+        ctx.fill();
+        ctx.stroke();
+    ctx.beginPath();
+        ctx.arc((p[0]*100-49),(p[1]*100-49), 35, 0, Math.PI*2);
+        ctx.fill();
+        ctx.stroke();
+    ctx.beginPath();
+        ctx.arc((p[0]*100-49),(p[1]*100-49), 30, 0, Math.PI*2);
+        ctx.fill();
+        ctx.stroke();
+    ctx.beginPath();
+        ctx.arc((p[0]*100-49),(p[1]*100-49), 25, 0, Math.PI*2);
         ctx.fill();
         ctx.stroke();
 }
 
 function drawPieces(){
-    drawPionW(pions.pw1);
-    drawPionW(pions.pw2);
-    drawPionW(pions.pw3);
-    drawPionW(pions.pw4);
-    drawPionW(pions.pw5);
-    drawPionW(pions.pw6);
-    drawPionW(pions.pw7);
-    drawPionW(pions.pw8);
-    drawPionB(pions.pb1);
-    drawPionB(pions.pb2);
-    drawPionB(pions.pb3);
-    drawPionB(pions.pb4);
-    drawPionB(pions.pb5);
-    drawPionB(pions.pb6);
-    drawPionB(pions.pb7);
-    drawPionB(pions.pb8);
+    drawPion(pions.pw1);
+    drawPion(pions.pw2);
+    drawPion(pions.pw3);
+    drawPion(pions.pw4);
+    drawPion(pions.pw5);
+    drawPion(pions.pw6);
+    drawPion(pions.pw7);
+    drawPion(pions.pw8);
+    drawPion(pions.pb1);
+    drawPion(pions.pb2);
+    drawPion(pions.pb3);
+    drawPion(pions.pb4);
+    drawPion(pions.pb5);
+    drawPion(pions.pb6);
+    drawPion(pions.pb7);
+    drawPion(pions.pb8);
+
+    drawTour(pions.tw1);
+    drawTour(pions.tw2);
+    drawTour(pions.tb1);
+    drawTour(pions.tb2);
+
+    drawFou(pions.fw1);
+    drawFou(pions.fw2);
+    drawFou(pions.fb1);
+    drawFou(pions.fb2);
+
+    drawHorse(pions.hw1);
+    drawHorse(pions.hw2);
+    drawHorse(pions.hb1);
+    drawHorse(pions.hb2);
+
+    drawKing(pions.kw);
+    drawKing(pions.kb);
+    drawQueen(pions.qw);
+    drawQueen(pions.qb);
 }
 
 
