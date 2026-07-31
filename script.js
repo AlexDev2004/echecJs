@@ -28,47 +28,82 @@ const grillContent =[
     [0,pions.pb8,0,0,0,0,pions.pw8,0],
 ];
 
-function pionMove(p){
-    if(p[2] == "w"){ // Mouvement pion blanc
-        if(p[1]>1){
-            if(grillContent[p[0]-1][p[1]-2] == 0){
-                grillContent[p[0]-1][p[1]-1] = 0;
-                p[1]--;
-                grillContent[p[0]-1][p[1]-1] = p;
+// function pionMove(p){
+//     if(p[2] == "w"){ // Mouvement pion blanc
+//         if(p[1]>1){
+//             if(grillContent[p[0]-1][p[1]-2] == 0){
+//                 grillContent[p[0]-1][p[1]-1] = 0;
+//                 p[1]--;
+//                 grillContent[p[0]-1][p[1]-1] = p;
+//                 console.log("Le pion avance de 1 case");
+//             }else{
+//                 console.log("La case suivante est occupée")
+//             }
+//         }else{
+//             console.log("Le pion est déjà au bout");
+//         }
+//     }
+//     if(p[2] == "b"){ // Mouvement pion noir
+//         if(p[1]<8){
+//             if(grillContent[p[0]-1][p[1]] == 0){
+//                 grillContent[p[0]-1][p[1]-1] = 0;
+//                 p[1]++;
+//                 grillContent[p[0]-1][p[1]-1] = p;
+//                 console.log("Le pion avance de 1 case");
+//             }else{
+//                 console.log("La case suivante est occupée")
+//             }
+//         }else{
+//             console.log("Le pion est déjà au bout");
+//         }
+//     }
+// }
+
+let pionSelect;
+let caseSelect;
+
+function placeCheck(x,y){
+    if(grillContent[x-1][y-1] == 0){
+        if(pionSelect[2] == "w"){ // Mouvement pion blanc
+            if((x == pionSelect[0]) && (y == pionSelect[1]-1)){
+                grillContent[pionSelect[0]-1][pionSelect[1]-1] = 0;
+                pionSelect[1]  = y;
+                grillContent[pionSelect[0]-1][pionSelect[1]-1] = pionSelect;
                 console.log("Le pion avance de 1 case");
-            }else{
-                console.log("La case suivante est occupée")
-            }
-        }else{
-            console.log("Le pion est déjà au bout");
-        }
-    }
-    if(p[2] == "b"){ // Mouvement pion noir
-        if(p[1]<8){
-            if(grillContent[p[0]-1][p[1]] == 0){
-                grillContent[p[0]-1][p[1]-1] = 0;
-                p[1]++;
-                grillContent[p[0]-1][p[1]-1] = p;
+            }else{return console.log("mouvement impossible")}
+        }else{ // Mouvement pion noir
+            if((x == pionSelect[0]) && (y == pionSelect[1]+1)){
+                grillContent[pionSelect[0]-1][pionSelect[1]-1] = 0;
+                pionSelect[1]  = y;
+                grillContent[pionSelect[0]-1][pionSelect[1]-1] = pionSelect;
                 console.log("Le pion avance de 1 case");
-            }else{
-                console.log("La case suivante est occupée")
-            }
-        }else{
-            console.log("Le pion est déjà au bout");
+            }else{return console.log("mouvement impossible")}
         }
+    }else{return console.log("case occupée")}
+    pionSelect = 0;
+}
+
+function click(content,x,y){
+    if(content != 0){
+        // if(pionSelect[3] == "p"){
+        // pionMove(pionSelect);
+        // }
+        pionSelect = content;
+        console.log(pionSelect,x,y);
+    }else{
+        console.log(pionSelect,content,x,y);
+        placeCheck(x,y);
     }
 }
 
-let pionSelect;
 document.addEventListener("mousedown", (event) => {
     if (event.button === 0) {
+        // let caseSelect;
         let mouseX = event.clientX;
         let mouseY = event.clientY;
-        let pionX = Math.floor((mouseX-1)/100);
-        let pionY = Math.floor((mouseY-1)/100);
-        pionSelect = grillContent[pionX][pionY];
-        if(pionSelect[3] == "p"){
-            pionMove(pionSelect);
-        }
+        let pionX = 1+Math.floor((mouseX-1)/100);
+        let pionY = 1+Math.floor((mouseY-1)/100);
+        caseSelect = grillContent[pionX-1][pionY-1];
+        click(caseSelect,pionX,pionY);
     }
 }); 
