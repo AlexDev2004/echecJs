@@ -133,6 +133,89 @@ function tourMove(content,x,y){ // Commandes de la tour
         pionSelect =[0,0,"w"];
     }
 }
+function fouMove(content,x,y){ // Commandes du fou
+
+    let check = false;
+    for(let i=[pionSelect[0]+1,pionSelect[1]+1];i[0]<=8 && i[1]<=8;){
+        if(i[0]==x && i[1]==y){
+            check = true;
+        }
+        i[0]++;
+        i[1]++;
+    }
+    for(let i=[pionSelect[0]-1,pionSelect[1]+1];i[0]>=1 && i[1]<=8;){
+        if(i[0]==x && i[1]==y){
+            check = true;
+        }
+        i[0]--;
+        i[1]++;
+    }
+    for(let i=[pionSelect[0]-1,pionSelect[1]-1];i[0]>=1 && i[1]>=1;){
+        if(i[0]==x && i[1]==y){
+            check = true;
+        }
+        i[0]--;
+        i[1]--;
+    }
+    for(let i=[pionSelect[0]+1,pionSelect[1]-1];i[0]<=8 && i[1]>=1;){
+        if(i[0]==x && i[1]==y){
+            check = true;
+        }
+        i[0]++;
+        i[1]--;
+    }
+
+    if(check){
+        if(x>pionSelect[0] && y>pionSelect[1]){
+            for(let i=[x-1,y-1];i[0]>pionSelect[0]+1 && i[1]>pionSelect[1]+1;){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[0]--;
+                i[1]--;
+            }
+        }else if(x<pionSelect[0] && y>pionSelect[1]){
+            for(let i=[x+1,y-1];i[0]<pionSelect[0]-1 && i[1]>pionSelect[1]+1;){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[0]++;
+                i[1]--;
+            }
+        }else if(x<pionSelect[0] && y<pionSelect[1]){
+            for(let i=[x+1,y+1];i[0]<pionSelect[0]-1 && i[1]<pionSelect[1]-1;){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[0]++;
+                i[1]++;
+            }
+        }else{
+           for(let i=[x-1,y+1];i[0]>pionSelect[0]+1 && i[1]<pionSelect[1]-1;){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[0]--;
+                i[1]++;
+            }
+        }
+
+        grillContent[pionSelect[0]-1][pionSelect[1]-1] = 0;
+        if(content != 0){
+            content[0] = -1;
+        }
+        pionSelect[0] = x;
+        pionSelect[1] = y;
+        grillContent[pionSelect[0]-1][pionSelect[1]-1] = pionSelect;
+        console.log("Le pion avance de 1 case");
+    
+        if(pionSelect[2] == "w"){
+            pionSelect = [0,0,"b"];
+        }else{
+            pionSelect =[0,0,"w"];
+        }
+    }
+}
 
 function click(content,x,y){
     if((content != 0) && (content[2] == pionSelect[2])){
@@ -147,6 +230,9 @@ function click(content,x,y){
             }else if(pionSelect[3] == "t"){
                 console.log(pionSelect,content,x,y);
                 tourMove(content,x,y);
+            }else if(pionSelect[3] == "f"){
+                console.log(pionSelect,content,x,y);
+                fouMove(content,x,y);
             }else{
                 return console.log("pion inexistant");
             }
