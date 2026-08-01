@@ -21,12 +21,12 @@ const pions ={
     tw1:[1,8,"w","t"],tw2:[8,8,"w","t"],
     fw1:[3,8,"w","f"],fw2:[6,8,"w","f"],
     hw1:[2,8,"w","h"],hw2:[7,8,"w","h"],
-    kw:[5,8,"w","f"],qw:[4,8,"w","h"],
+    kw:[5,8,"w","f"],qw:[4,8,"w","q"],
     // Autres pieces Noires
     tb1:[1,1,"b","t"],tb2:[8,1,"b","t"],
     fb1:[3,1,"b","f"],fb2:[6,1,"b","f"],
     hb1:[2,1,"b","h"],hb2:[7,1,"b","h"],
-    kb:[5,1,"b","f"],qb:[4,1,"b","h"]
+    kb:[5,1,"b","f"],qb:[4,1,"b","q"]
 }
 
 const grillContent =[
@@ -167,7 +167,7 @@ function fouMove(content,x,y){ // Commandes du fou
 
     if(check){
         if(x>pionSelect[0] && y>pionSelect[1]){
-            for(let i=[x-1,y-1];i[0]>pionSelect[0]+1 && i[1]>pionSelect[1]+1;){
+            for(let i=[x-1,y-1];i[0]>pionSelect[0] && i[1]>pionSelect[1];){
                 if(grillContent[i[0]-1][i[1]-1] != 0){
                     return console.log("Mouvement impossible");
                 }
@@ -175,7 +175,7 @@ function fouMove(content,x,y){ // Commandes du fou
                 i[1]--;
             }
         }else if(x<pionSelect[0] && y>pionSelect[1]){
-            for(let i=[x+1,y-1];i[0]<pionSelect[0]-1 && i[1]>pionSelect[1]+1;){
+            for(let i=[x+1,y-1];i[0]<pionSelect[0] && i[1]>pionSelect[1];){
                 if(grillContent[i[0]-1][i[1]-1] != 0){
                     return console.log("Mouvement impossible");
                 }
@@ -183,7 +183,7 @@ function fouMove(content,x,y){ // Commandes du fou
                 i[1]--;
             }
         }else if(x<pionSelect[0] && y<pionSelect[1]){
-            for(let i=[x+1,y+1];i[0]<pionSelect[0]-1 && i[1]<pionSelect[1]-1;){
+            for(let i=[x+1,y+1];i[0]<pionSelect[0] && i[1]<pionSelect[1];){
                 if(grillContent[i[0]-1][i[1]-1] != 0){
                     return console.log("Mouvement impossible");
                 }
@@ -191,12 +191,126 @@ function fouMove(content,x,y){ // Commandes du fou
                 i[1]++;
             }
         }else{
-           for(let i=[x-1,y+1];i[0]>pionSelect[0]+1 && i[1]<pionSelect[1]-1;){
+           for(let i=[x-1,y+1];i[0]>pionSelect[0] && i[1]<pionSelect[1];){
                 if(grillContent[i[0]-1][i[1]-1] != 0){
                     return console.log("Mouvement impossible");
                 }
                 i[0]--;
                 i[1]++;
+            }
+        }
+
+        grillContent[pionSelect[0]-1][pionSelect[1]-1] = 0;
+        if(content != 0){
+            content[0] = -1;
+        }
+        pionSelect[0] = x;
+        pionSelect[1] = y;
+        grillContent[pionSelect[0]-1][pionSelect[1]-1] = pionSelect;
+        console.log("Le pion avance de 1 case");
+    
+        if(pionSelect[2] == "w"){
+            pionSelect = [0,0,"b"];
+        }else{
+            pionSelect =[0,0,"w"];
+        }
+    }
+}
+function queenMove(content,x,y){ // Commandes du fou
+
+    let check = false;
+    if((x == pionSelect[0]) || (y == pionSelect[1])){
+        check = true;
+    }
+    for(let i=[pionSelect[0]+1,pionSelect[1]+1];i[0]<=8 && i[1]<=8;){
+        if(i[0]==x && i[1]==y){
+            check = true;
+        }
+        i[0]++;
+        i[1]++;
+    }
+    for(let i=[pionSelect[0]-1,pionSelect[1]+1];i[0]>=1 && i[1]<=8;){
+        if(i[0]==x && i[1]==y){
+            check = true;
+        }
+        i[0]--;
+        i[1]++;
+    }
+    for(let i=[pionSelect[0]-1,pionSelect[1]-1];i[0]>=1 && i[1]>=1;){
+        if(i[0]==x && i[1]==y){
+            check = true;
+        }
+        i[0]--;
+        i[1]--;
+    }
+    for(let i=[pionSelect[0]+1,pionSelect[1]-1];i[0]<=8 && i[1]>=1;){
+        if(i[0]==x && i[1]==y){
+            check = true;
+        }
+        i[0]++;
+        i[1]--;
+    }
+
+    if(check){
+        if(x>pionSelect[0] && y>pionSelect[1]){
+            for(let i=[x-1,y-1];i[0]>pionSelect[0] && i[1]>pionSelect[1];){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[0]--;
+                i[1]--;
+            }
+        }else if(x<pionSelect[0] && y>pionSelect[1]){
+            for(let i=[x+1,y-1];i[0]<pionSelect[0] && i[1]>pionSelect[1];){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[0]++;
+                i[1]--;
+            }
+        }else if(x<pionSelect[0] && y<pionSelect[1]){
+            for(let i=[x+1,y+1];i[0]<pionSelect[0] && i[1]<pionSelect[1];){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[0]++;
+                i[1]++;
+            }
+        }else if(x>pionSelect[0] && y<pionSelect[1]){
+           for(let i=[x-1,y+1];i[0]>pionSelect[0] && i[1]<pionSelect[1];){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[0]--;
+                i[1]++;
+            }
+        }else if(x==pionSelect[0] && y>pionSelect[1]){
+            for(let i=[x,y-1];i[1]>pionSelect[1];){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[1]--;
+            }
+        }else if(x==pionSelect[0] && y<pionSelect[1]){
+            for(let i=[x,y+1];i[1]<pionSelect[1];){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[1]++;
+            }
+        }else if(x>pionSelect[0] && y==pionSelect[1]){
+            for(let i=[x-1,y];i[0]>pionSelect[0];){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[0]--;
+            }
+        }else if(x<pionSelect[0] && y==pionSelect[1]){
+           for(let i=[x+1,y];i[0]<pionSelect[0];){
+                if(grillContent[i[0]-1][i[1]-1] != 0){
+                    return console.log("Mouvement impossible");
+                }
+                i[0]++;
             }
         }
 
@@ -233,6 +347,9 @@ function click(content,x,y){
             }else if(pionSelect[3] == "f"){
                 console.log(pionSelect,content,x,y);
                 fouMove(content,x,y);
+            }else if(pionSelect[3] == "q"){
+                console.log(pionSelect,content,x,y);
+                queenMove(content,x,y);
             }else{
                 return console.log("pion inexistant");
             }
