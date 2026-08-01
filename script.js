@@ -21,12 +21,12 @@ const pions ={
     tw1:[1,8,"w","t"],tw2:[8,8,"w","t"],
     fw1:[3,8,"w","f"],fw2:[6,8,"w","f"],
     hw1:[2,8,"w","h"],hw2:[7,8,"w","h"],
-    kw:[5,8,"w","f"],qw:[4,8,"w","q"],
+    kw:[5,8,"w","k"],qw:[4,8,"w","q"],
     // Autres pieces Noires
     tb1:[1,1,"b","t"],tb2:[8,1,"b","t"],
     fb1:[3,1,"b","f"],fb2:[6,1,"b","f"],
     hb1:[2,1,"b","h"],hb2:[7,1,"b","h"],
-    kb:[5,1,"b","f"],qb:[4,1,"b","q"]
+    kb:[5,1,"b","k"],qb:[4,1,"b","q"]
 }
 
 const grillContent =[
@@ -330,6 +330,49 @@ function queenMove(content,x,y){ // Commandes du fou
         }
     }
 }
+function kingMove(content,x,y){ // Commandes de la tour
+    let check = false;
+    if(x==pionSelect[0]+1){
+        if(y==pionSelect[1]+1){
+            check = true;
+        }else if(y==pionSelect[1]){
+            check = true;
+        }else if(y==pionSelect[1]-1){
+            check = true;
+        }
+    }else if(x==pionSelect[0]){
+        if(y==pionSelect[1]+1){
+            check = true;
+        }else if(y==pionSelect[1]-1){
+            check = true;
+        }
+    }else if(x==pionSelect[0]-1){
+        if(y==pionSelect[1]+1){
+            check = true;
+        }else if(y==pionSelect[1]){
+            check = true;
+        }else if(y==pionSelect[1]-1){
+            check = true;
+        }
+    }
+    if(check){
+        grillContent[pionSelect[0]-1][pionSelect[1]-1] = 0;
+        if(content != 0){
+            content[0] = -1
+        }
+        pionSelect[0] = x;
+        pionSelect[1] = y;
+        grillContent[pionSelect[0]-1][pionSelect[1]-1] = pionSelect;
+        console.log("Le pion avance de 1 case");
+    }else{
+        return console.log("mouvement impossible")
+    }
+    if(pionSelect[2] == "w"){
+        pionSelect = [0,0,"b"];
+    }else{
+        pionSelect =[0,0,"w"];
+    }
+}
 
 function click(content,x,y){
     if((content != 0) && (content[2] == pionSelect[2])){
@@ -350,6 +393,9 @@ function click(content,x,y){
             }else if(pionSelect[3] == "q"){
                 console.log(pionSelect,content,x,y);
                 queenMove(content,x,y);
+            }else if(pionSelect[3] == "k"){
+                console.log(pionSelect,content,x,y);
+                kingMove(content,x,y);
             }else{
                 return console.log("pion inexistant");
             }

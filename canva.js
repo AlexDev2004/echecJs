@@ -180,6 +180,15 @@ function gameLoop(){
     drawArea();
     drawPieces();
 
+    if(pions.kb[0]==-1){
+        alert("Victoire des blancs");
+        return console.log("Victoire des blancs");
+    }
+    if(pions.kw[0]==-1){
+        alert("Victoire des noirs");
+        return console.log("Victoire des noirs");
+    }
+
     requestAnimationFrame(gameLoop);
 }
 gameLoop();
