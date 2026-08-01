@@ -330,7 +330,7 @@ function queenMove(content,x,y){ // Commandes du fou
         }
     }
 }
-function kingMove(content,x,y){ // Commandes de la tour
+function kingMove(content,x,y){ // Commandes du roi
     let check = false;
     if(x==pionSelect[0]+1){
         if(y==pionSelect[1]+1){
@@ -352,6 +352,35 @@ function kingMove(content,x,y){ // Commandes de la tour
         }else if(y==pionSelect[1]){
             check = true;
         }else if(y==pionSelect[1]-1){
+            check = true;
+        }
+    }
+    if(check){
+        grillContent[pionSelect[0]-1][pionSelect[1]-1] = 0;
+        if(content != 0){
+            content[0] = -1
+        }
+        pionSelect[0] = x;
+        pionSelect[1] = y;
+        grillContent[pionSelect[0]-1][pionSelect[1]-1] = pionSelect;
+        console.log("Le pion avance de 1 case");
+    }else{
+        return console.log("mouvement impossible")
+    }
+    if(pionSelect[2] == "w"){
+        pionSelect = [0,0,"b"];
+    }else{
+        pionSelect =[0,0,"w"];
+    }
+}
+function horseMove(content,x,y){ // Commandes du cavalier
+    let check = false;
+    if((x==pionSelect[0]+1) || (x==pionSelect[0]-1)){
+        if((y==pionSelect[1]+2) || (y==pionSelect[1]-2)){
+            check = true;
+        }
+    }else if((x==pionSelect[0]+2) || (x==pionSelect[0]-2)){
+        if((y==pionSelect[1]+1) || (y==pionSelect[1]-1)){
             check = true;
         }
     }
@@ -396,6 +425,9 @@ function click(content,x,y){
             }else if(pionSelect[3] == "k"){
                 console.log(pionSelect,content,x,y);
                 kingMove(content,x,y);
+            }else if(pionSelect[3] == "h"){
+                console.log(pionSelect,content,x,y);
+                horseMove(content,x,y);
             }else{
                 return console.log("pion inexistant");
             }
