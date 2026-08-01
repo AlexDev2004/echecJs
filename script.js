@@ -11,11 +11,11 @@
 
 const pions ={
     // Pions blancs
-    pw1:[1,7,"w","p"],pw2:[2,7,"w","p"],pw3:[3,7,"w","p"],pw4:[4,7,"w","p"],
-    pw5:[5,7,"w","p"],pw6:[6,7,"w","p"],pw7:[7,7,"w","p"],pw8:[8,7,"w","p"],
+    pw1:[1,7,"w","p",true],pw2:[2,7,"w","p",true],pw3:[3,7,"w","p",true],pw4:[4,7,"w","p",true],
+    pw5:[5,7,"w","p",true],pw6:[6,7,"w","p",true],pw7:[7,7,"w","p",true],pw8:[8,7,"w","p",true],
     // Pions Noirs
-    pb1:[1,2,"b","p"],pb2:[2,2,"b","p"],pb3:[3,2,"b","p"],pb4:[4,2,"b","p"],
-    pb5:[5,2,"b","p"],pb6:[6,2,"b","p"],pb7:[7,2,"b","p"],pb8:[8,2,"b","p"],
+    pb1:[1,2,"b","p",true],pb2:[2,2,"b","p",true],pb3:[3,2,"b","p",true],pb4:[4,2,"b","p",true],
+    pb5:[5,2,"b","p",true],pb6:[6,2,"b","p",true],pb7:[7,2,"b","p",true],pb8:[8,2,"b","p",true],
 
     // Autres pieces blanches
     tw1:[1,8,"w","t"],tw2:[8,8,"w","t"],
@@ -50,13 +50,29 @@ function pionMove(content,x,y){ // Commandes du pion
                 pionSelect[1]  = y;
                 grillContent[pionSelect[0]-1][pionSelect[1]-1] = pionSelect;
                 console.log("Le pion avance de 1 case");
-            }else{return console.log("mouvement impossible")}
+            }else if(pionSelect[4]){
+                if((x == pionSelect[0]) && (y == pionSelect[1]-2)){
+                    grillContent[pionSelect[0]-1][pionSelect[1]-1] = 0;
+                    pionSelect[1]  = y;
+                    grillContent[pionSelect[0]-1][pionSelect[1]-1] = pionSelect;
+                    console.log("Le pion avance de 1 case");
+                    pionSelect[4] = false;
+                }else{return console.log("Mouvement impossible");}
+            }else{return console.log("mouvement impossible");}
         }else{ // Mouvement pion noir
             if((x == pionSelect[0]) && (y == pionSelect[1]+1)){
                 grillContent[pionSelect[0]-1][pionSelect[1]-1] = 0;
                 pionSelect[1]  = y;
                 grillContent[pionSelect[0]-1][pionSelect[1]-1] = pionSelect;
                 console.log("Le pion avance de 1 case");
+            }else if(pionSelect[4]){
+                if((x == pionSelect[0]) && (y == pionSelect[1]+2)){
+                    grillContent[pionSelect[0]-1][pionSelect[1]-1] = 0;
+                    pionSelect[1]  = y;
+                    grillContent[pionSelect[0]-1][pionSelect[1]-1] = pionSelect;
+                    console.log("Le pion avance de 1 case");
+                    pionSelect[4] = false;
+                }else{return console.log("Mouvement impossible");}
             }else{return console.log("mouvement impossible")}
         }
     }else{ // Le pion mange
